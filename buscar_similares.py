@@ -1,5 +1,5 @@
 import argparse
-
+from extractores import extraer_funciones
 
 def main():
   # 1. Crear el objeto parser que gestionará los argumentos
@@ -38,6 +38,7 @@ def main():
   print(f'Mostrando el top: {args.top}')
 
   # Aquí iría tu lógica principal...
+  funciones = extraer_funciones(args.dir)
 
 
 if __name__ == '__main__':
