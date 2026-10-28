@@ -1,6 +1,8 @@
 import argparse
 from extractores import extraer_funciones, buscar_funcion
 from normalizacion import normalize
+from similitud_jaccard import evaluar_similitud_funciones
+import os
 def main():
     # 1. Crear el objeto parser que gestionará los argumentos
     parser = argparse.ArgumentParser(
@@ -61,6 +63,10 @@ def main():
     for f in funciones:
         normalize(f["ast"])
     normalize(objetivo["ast"])
-
+    resultados = evaluar_similitud_funciones(objetivo,funciones,n_gramas = 3,top_k = args.top)
+    print(f"\n{'UBICACIÓN / LÍNEA':<24} {'SIMILITUD':<14} {'DECISIÓN'}")
+    print("-" * 62)
+    print("\n".join(f"▸ {os.path.relpath(r['archivo:nombre'], args.dir)}\n  {'Línea ' + str(r['linea']):<22} {r['porcentaje_similitud']:>6.2f}%       {r['decision_similitud']}" for r in resultados))
+    print("-" * 62)
 if __name__ == '__main__':
     main()
