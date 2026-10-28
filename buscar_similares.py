@@ -1,6 +1,6 @@
 import argparse
 from extractores import extraer_funciones
-
+from normalizacion import normalize
 def main():
   # 1. Crear el objeto parser que gestionará los argumentos
   parser = argparse.ArgumentParser(
@@ -37,9 +37,14 @@ def main():
   print(f'Buscando similitudes para: {args.funcion}')
   print(f'Mostrando el top: {args.top}')
 
-  # Aquí iría tu lógica principal...
+  # Primero extraemos las funciones utilizando el extractor de funciones
+  # Obteniendo una lista de diccionarios del estilo: ["nombre"], ["archivo"], ["linea"] y ["ast"]
   funciones = extraer_funciones(args.dir)
 
+  # Por cada funcion, la normalizamos
+  # El normalizador modifica el arbol en memoria (referencia), por lo que quedaría normalizado en el mismo lugar ["ast"] 
+  for f in funciones:
+    normalize(f["ast"])
 
 if __name__ == '__main__':
   main()

@@ -25,7 +25,7 @@ class ExtractorFuncionesAST(ast.NodeVisitor):
             "nombre": node.name,
             "archivo": self.archivo,
             "linea": node.lineno,
-            "ast": ast.dump(node, indent=4),
+            "ast": node,
         })
 
 
