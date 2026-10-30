@@ -55,7 +55,7 @@ def main():
         if not (
             f["nombre"] == objetivo["nombre"]
             and f["linea"] == objetivo["linea"]
-            and f["archivo"] == objetivo["archivo"]
+            and os.path.abspath(f["archivo"]) == os.path.abspath(objetivo["archivo"])
         )
     ]
     # Por cada funcion, la normalizamos
